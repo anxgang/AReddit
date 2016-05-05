@@ -1,14 +1,10 @@
-<p id="notice"><%= notice %></p>
-
-<p>
-  <strong>Title:</strong>
-  <%= @link.title %>
-</p>
-
-<p>
-  <strong>Url:</strong>
-  <%= @link.url %>
-</p>
-
-<%= link_to 'Edit', edit_link_path(@link) %> |
-<%= link_to 'Back', links_path %>
+<h2><%= link_to( @link.title, link_path(@link))%>
+  <br>
+  <small class="author"> Submitted <%= time_ago_in_words(@link.updated_at) %> by <%= @link.user.email %></small>
+</h2>
+<hr>
+<% if current_user == @link.user %>
+<%= link_to("Visit URL", @link.url, class: 'btn btn-xs btn-primary' ) %>
+<%= link_to 'Edit', edit_link_path(@link), class: 'btn btn-xs btn-default' %>
+<%= link_to 'Delete', @link, method: :delete, class: 'btn btn-xs btn-default', data: { confirm: 'Are you sure?' } %>
+<% end %>
